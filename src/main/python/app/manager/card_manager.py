@@ -36,7 +36,7 @@
         self.detected_cards_counts[card] = self.detected_cards_counts.get(card, 0) + 1
 
     def add_card_to_played(self, card):
-        if self.detected_cards_counts.get(card, 0) > 30:
+        if self.detected_cards_counts.get(card, 0) > 45:
             if card not in self.cards_first_set and len(self.cards_first_set) < 4:
                 self.cards_first_set.append(card)
                 print(f"Card '{card}' was played.")
