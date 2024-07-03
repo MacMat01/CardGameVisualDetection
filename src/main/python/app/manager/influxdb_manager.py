@@ -51,14 +51,12 @@ class InfluxDBManager:
         """
         phase = None
         vs = None
-        if round_number <= 1:
+        if 1 <= round_number <= 1:  # 1 <= round_number <= 12
             phase = 1
-        elif 12 <= round_number <= 18:
+        elif 1 < round_number <= 2:  # 12 < round_number <= 18
             phase = 2
-        elif 18 <= round_number <= 24:
+        elif 2 < round_number <= 3:  # 18 < round_number <= 24
             phase = 3
-        else:
-            print("Game Over!")
 
         for matchup in current_matchups:
             if player in matchup:
@@ -68,9 +66,8 @@ class InfluxDBManager:
         # Remove non-digit characters from the card string
         card = ''.join(c for c in card if c.isdigit())
 
-        point = Point("Game").tag("Phase", phase).tag("Round", round_number).tag("Player", player).tag("Card",
-                                                                                                       card).tag("VS",
-                                                                                                                 vs).field(
-            "Thinking Time", elapsed_time)
+        point = Point("Card Game").tag("Phase", phase).tag("Round", round_number).tag("Player", player).tag("Card",
+                                                                                                            card).tag(
+            "VS", vs).field("Thinking Time", elapsed_time)
         print(f"Writing to InfluxDB: {point.to_line_protocol()}")
         self.write_api.write(bucket="StrategicFruitsData", org="Cris-and-Matt", record=point.to_line_protocol())

@@ -40,7 +40,7 @@ class CardDetectionApp:
         self.yolo_model_manager = YOLOModelManager()
         self.player_manager = PlayerManager(self)
         self.card_manager = CardManager()
-        self.first_phase_rounds = 12
+        self.first_phase_rounds = 1
         self.round_number = 1
         self.player_detected = False
         self.cards_detected = True
