@@ -64,6 +64,8 @@
             if card in detected_cards and card not in all_played_cards:
                 self.increment_card_count(card)
                 self.add_card_to_played(card)
+            elif card not in detected_cards and card in self.detected_cards_counts:
+                self.detected_cards_counts[card] -= 1
 
     def duplicate_cards(self):
         """
