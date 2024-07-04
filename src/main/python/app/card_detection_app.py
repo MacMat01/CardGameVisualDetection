@@ -76,16 +76,15 @@ class CardDetectionApp:
         Checks if the current round should end based on the number of detected cards,
         and ends the round if necessary.
         """
-        if self.round_number <= self.first_phase_rounds and len(
-                self.card_manager.cards_first_set) == 4 and self.player_detected and not self.cards_detected:
+        if self.round_number < self.first_phase_rounds and self.player_detected and not self.cards_detected and len(
+                self.card_manager.cards_second_set) == 4:
             self.end_round()
-        elif self.round_number > self.first_phase_rounds and len(
-                self.card_manager.cards_second_set) == 4 and self.player_detected and not self.cards_detected:
-            self.end_round()
-
-        if self.round_number > self.first_phase_rounds and self.player_detected and not self.cards_detected and len(
+        elif self.round_number > self.first_phase_rounds and self.player_detected and not self.cards_detected and len(
                 self.card_manager.cards_second_set) < 4:
             self.card_manager.duplicate_cards()
+        elif self.round_number > self.first_phase_rounds and self.player_detected and not self.cards_detected and len(
+                self.card_manager.cards_second_set) == 4:
+            self.end_round()
 
     def end_round(self):
         """
@@ -93,14 +92,20 @@ class CardDetectionApp:
         """
         print(f"Round {self.round_number} ended")
         matched_players_cards = self.write_to_influxdb()
+
         for player, player_time, card in matched_players_cards:
             if (player, player_time) in self.player_manager.players_first_set:
                 self.player_manager.players_first_set.remove((player, player_time))
-            else:
+            elif (player, player_time) in self.player_manager.players_second_set:
                 self.player_manager.players_second_set.remove((player, player_time))
+
             if card in self.card_manager.cards_first_set:
                 self.card_manager.cards_first_set.remove(card)
+            elif card in self.card_manager.cards_second_set:
+                self.card_manager.cards_second_set.remove(card)
+
             self.influxdb_manager.write_to_influxdb(player, card, player_time, self.round_number, self.current_matchups)
+
         self.player_manager.players_first_set.clear()
         self.player_manager.players_second_set.clear()
         self.card_manager.cards_first_set.clear()
