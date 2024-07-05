@@ -1,4 +1,6 @@
-﻿import os
+﻿import csv
+import os
+from datetime import datetime
 
 from influxdb_client import InfluxDBClient, Point
 
@@ -51,11 +53,12 @@ class InfluxDBManager:
         """
         phase = None
         vs = None
-        if 1 <= round_number <= 12:  # 1 <= round_number <= 12
+
+        if 1 <= round_number <= 1:  # 1 <= round_number <= 12
             phase = 1
-        elif 12 < round_number <= 18:  # 12 < round_number <= 18
+        elif 1 < round_number <= 2:  # 12 < round_number <= 18
             phase = 2
-        elif 18 < round_number <= 24:  # 18 < round_number <= 24
+        elif 2 < round_number <= 3:  # 18 < round_number <= 24
             phase = 3
 
         for matchup in current_matchups:
