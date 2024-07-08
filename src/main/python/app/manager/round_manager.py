@@ -6,8 +6,8 @@ from datetime import datetime
 class RoundManager:
     def __init__(self, card_detection_app):
         self.card_detection_app = card_detection_app
-        self.first_phase_rounds = 1
-        self.round_number = 12
+        self.first_phase_rounds = 12
+        self.round_number = 1
         self.current_phase = 1
         self.current_matchups = None
         self.round_data = []
