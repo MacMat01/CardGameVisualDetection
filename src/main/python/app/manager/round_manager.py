@@ -36,7 +36,7 @@ class RoundManager:
 
     def write_round_data_to_csv(self):
         current_time = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
-        csv_file_name = f'strategic_fruits_card_game_playtest_{current_time}.csv'
+        csv_file_name = f'{current_time}.csv'
         header = ['Phase', 'Round', 'Player', 'Card', 'VS', 'Thinking Time']
         try:
             with open(csv_file_name, 'w', newline='') as csvfile:
