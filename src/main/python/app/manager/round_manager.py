@@ -6,7 +6,7 @@ from datetime import datetime
 class RoundManager:
     def __init__(self, card_detection_app):
         self.card_detection_app = card_detection_app
-        self.first_phase_rounds = 1
+        self.first_phase_rounds = 12
         self.round_number = 1
         self.current_phase = 1
         self.current_matchups = None
@@ -18,11 +18,11 @@ class RoundManager:
         self.setup_round_robin()
 
     def increment_phase(self):
-        if 1 <= self.round_number <= 1:  # 1 <= self.round_number <= 12
+        if 1 <= self.round_number <= 12:  # 1 <= self.round_number <= 12
             self.current_phase = 1
-        elif 1 < self.round_number <= 2:  # 12 < self.round_number <= 18
+        elif 12 < self.round_number <= 18:  # 12 < self.round_number <= 18
             self.current_phase = 2
-        elif 2 < self.round_number <= 3:  # 18 < self.round_number <= 24
+        elif 18 < self.round_number <= 24:  # 18 < self.round_number <= 24
             self.current_phase = 3
         print(f"Phase {self.current_phase} and Round {self.round_number} starting.")
 
